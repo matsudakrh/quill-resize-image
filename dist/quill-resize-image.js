@@ -117,7 +117,7 @@
                     height: resizeTarget.clientHeight,
                 };
             }
-            console.log('coepwjdfp@oejwpodfjepwjo');
+            console.log('DIFF CHECK v2');
             this.editor = editor;
             this.container = container;
             this.initResizer();
@@ -140,12 +140,14 @@
             }
             this.resizer = resizer;
         };
-        ResizePlugin.prototype.positionResizerToTarget = function (el) {
+        ResizePlugin.prototype.positionResizerToTarget = function (el, options) {
+            if (options === void 0) { options = { resizing: false }; }
             if (this.resizer !== null) {
                 this.resizer.style.setProperty("left", el.offsetLeft + "px");
                 this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
-                this.resizer.style.setProperty("width", el.clientWidth + "px");
-                this.resizer.style.setProperty("height", el.clientHeight + "px");
+                /// ドラッグ操作中だけ8pxサイズがずれる
+                this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) + "px");
+                this.resizer.style.setProperty("height", el.clientHeight + (options.resizing ? 8 : 0) + "px");
             }
         };
         ResizePlugin.prototype.bindEvents = function () {
@@ -222,7 +224,7 @@
             }
             this.resizeTarget.style.setProperty("width", Math.max(width, 30) + "px");
             this.resizeTarget.style.setProperty("height", Math.max(height, 30) + "px");
-            this.positionResizerToTarget(this.resizeTarget);
+            this.positionResizerToTarget(this.resizeTarget, { resizing: true });
         };
         ResizePlugin.prototype.destory = function () {
             this.container.removeChild(this.resizer);

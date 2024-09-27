@@ -102,6 +102,7 @@ class ResizePlugin {
     if (this.resizer !== null) {
       this.resizer.style.setProperty("left", el.offsetLeft + "px");
       this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
+      /// ドラッグ操作中だけ8pxサイズがずれる
       this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) +"px");
       this.resizer.style.setProperty("height", el.clientHeight + (options.resizing ? 8 : 0) + "px");
     }
