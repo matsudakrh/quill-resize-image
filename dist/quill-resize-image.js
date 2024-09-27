@@ -117,6 +117,7 @@
                     height: resizeTarget.clientHeight,
                 };
             }
+            console.log('coepwjdfp@oejwpodfjepwjo');
             this.editor = editor;
             this.container = container;
             this.initResizer();
