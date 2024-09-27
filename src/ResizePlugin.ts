@@ -63,7 +63,7 @@ class ResizePlugin {
       };
     }
 
-    console.log('coepwjdfp@oejwpodfjepwjo')
+    console.log('DIFF CHECK v2')
     
     this.editor = editor;
     this.container = container;
@@ -98,12 +98,12 @@ class ResizePlugin {
     }
     this.resizer = resizer;
   }
-  positionResizerToTarget(el: HTMLElement) {
+  positionResizerToTarget(el: HTMLElement, options: { resizing: boolean } = { resizing: false }) {
     if (this.resizer !== null) {
       this.resizer.style.setProperty("left", el.offsetLeft + "px");
       this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
-      this.resizer.style.setProperty("width", el.clientWidth + "px");
-      this.resizer.style.setProperty("height", el.clientHeight + "px");
+      this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) +"px");
+      this.resizer.style.setProperty("height", el.clientHeight + (options.resizing ? 8 : 0) + "px");
     }
   }
   bindEvents() {
@@ -179,7 +179,7 @@ class ResizePlugin {
 
     this.resizeTarget.style.setProperty("width", Math.max(width, 30) + "px");
     this.resizeTarget.style.setProperty("height", Math.max(height, 30) + "px");
-    this.positionResizerToTarget(this.resizeTarget);
+    this.positionResizerToTarget(this.resizeTarget, { resizing: true });
   }
 
   destory() {
