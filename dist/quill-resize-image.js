@@ -117,7 +117,6 @@
                     height: resizeTarget.clientHeight,
                 };
             }
-            console.log('DIFF CHECK v2');
             this.editor = editor;
             this.container = container;
             this.initResizer();
