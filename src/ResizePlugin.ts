@@ -63,7 +63,7 @@ class ResizePlugin {
       };
     }
 
-    console.log('DIFF CHECK v2')
+    console.log('DIFF CHECK v3')
     
     this.editor = editor;
     this.container = container;
@@ -100,7 +100,9 @@ class ResizePlugin {
   }
   positionResizerToTarget(el: HTMLElement, options: { resizing: boolean } = { resizing: false }) {
     if (this.resizer !== null) {
-      this.resizer.style.setProperty("left", el.offsetLeft + "px");
+      const containerBounding = this.container.getBoundingClientRect()
+      const elBounding = el.getBoundingClientRect()
+      this.resizer.style.setProperty("left", (elBounding.left - containerBounding.left) + "px");
       this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
       /// ドラッグ操作中だけ8pxサイズがずれる
       this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) +"px");

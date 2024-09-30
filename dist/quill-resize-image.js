@@ -143,7 +143,9 @@
         ResizePlugin.prototype.positionResizerToTarget = function (el, options) {
             if (options === void 0) { options = { resizing: false }; }
             if (this.resizer !== null) {
-                this.resizer.style.setProperty("left", el.offsetLeft + "px");
+                var containerBounding = this.container.getBoundingClientRect();
+                var elBounding = el.getBoundingClientRect();
+                this.resizer.style.setProperty("left", (elBounding.left - containerBounding.left) + "px");
                 this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
                 /// ドラッグ操作中だけ8pxサイズがずれる
                 this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) + "px");
