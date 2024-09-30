@@ -62,8 +62,6 @@ class ResizePlugin {
         height: resizeTarget.clientHeight,
       };
     }
-
-    console.log('DIFF CHECK v3')
     
     this.editor = editor;
     this.container = container;
