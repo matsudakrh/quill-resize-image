@@ -101,7 +101,7 @@ class ResizePlugin {
       const containerBounding = this.container.getBoundingClientRect()
       const elBounding = el.getBoundingClientRect()
       this.resizer.style.setProperty("left", (elBounding.left - containerBounding.left) + "px");
-      this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
+      this.resizer.style.setProperty("top", (elBounding.top - containerBounding.top) + "px");
       /// ドラッグ操作中だけ8pxサイズがずれる
       this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) +"px");
       this.resizer.style.setProperty("height", el.clientHeight + (options.resizing ? 8 : 0) + "px");
