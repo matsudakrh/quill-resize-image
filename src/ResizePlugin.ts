@@ -96,12 +96,15 @@ class ResizePlugin {
     }
     this.resizer = resizer;
   }
-  positionResizerToTarget(el: HTMLElement) {
+  positionResizerToTarget(el: HTMLElement, options: { resizing: boolean } = { resizing: false }) {
     if (this.resizer !== null) {
-      this.resizer.style.setProperty("left", el.offsetLeft + "px");
-      this.resizer.style.setProperty("top", (el.offsetTop - this.editor.scrollTop) + "px");
-      this.resizer.style.setProperty("width", el.clientWidth + "px");
-      this.resizer.style.setProperty("height", el.clientHeight + "px");
+      const containerBounding = this.container.getBoundingClientRect()
+      const elBounding = el.getBoundingClientRect()
+      this.resizer.style.setProperty("left", (elBounding.left - containerBounding.left) + "px");
+      this.resizer.style.setProperty("top", (elBounding.top - containerBounding.top) + "px");
+      /// ドラッグ操作中だけ8pxサイズがずれる
+      this.resizer.style.setProperty("width", el.clientWidth + (options.resizing ? 8 : 0) +"px");
+      this.resizer.style.setProperty("height", el.clientHeight + (options.resizing ? 8 : 0) + "px");
     }
   }
   bindEvents() {
@@ -177,7 +180,7 @@ class ResizePlugin {
 
     this.resizeTarget.style.setProperty("width", Math.max(width, 30) + "px");
     this.resizeTarget.style.setProperty("height", Math.max(height, 30) + "px");
-    this.positionResizerToTarget(this.resizeTarget);
+    this.positionResizerToTarget(this.resizeTarget, { resizing: true });
   }
 
   destory() {
